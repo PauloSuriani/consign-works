@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-// import { CustommerCard } from "../components/CustommerCard";
+import { CustommerCard } from "../components/CustommerCard";
 import { useNavigate } from 'react-router-dom';
 // import { CustommerCardToPrint } from "../components/CustommerCardToPrint";
 import { api_url } from "../../serverUrl";
+// import { useHistory } from "react-router-dom";
 
 interface Route {
   contato: string,
@@ -17,7 +18,7 @@ interface Consignments {
   data_consignacao: Date | any,
   em_aberto: boolean,
   id: string,
-  id_custommer: string,
+  id_custommer: number,
   id_seller: string
 }
 
@@ -93,6 +94,12 @@ export function MainPage() {
     setRouteInfo(response.route);
     setConsignmentInfo(response.consignOrders);
     setOrders(response.detailedOrders);
+
+    const consignOrdersAux: Array<number> = [];
+    response.consignOrders.map((consign: Consignments) => {
+      consignOrdersAux.push(consign.id_custommer);
+    })
+    setToPrintQueue(consignOrdersAux);
   }
 
   function handleToPrintQueue(custommerId: number) {
@@ -165,6 +172,16 @@ export function MainPage() {
     }
   }
 
+  function newScreen() {
+    // const history = useHistory();
+    const stateAux = [];
+    for (let i = 0; i < 12; i += 1) {
+      stateAux.push(orders[i]);
+    }
+    const stateData = { stateAux };
+    console.log(stateData);
+    navigate('/consignment', {state: {stateData}, replace: false});
+  }
   return (
     printScreen ?
       <div>
@@ -278,6 +295,7 @@ export function MainPage() {
                 <label className="form-label">UF</label>
                 <input className="form-input" type="text" size={1} id="uf" onChange={evt => updateInputValue(evt)} />
               </div>
+              <button onClick={newScreen}>XANBARILÃ</button>
             </div>
           </div>
 
@@ -286,15 +304,15 @@ export function MainPage() {
             {filteredCustommers.map((custommer, index) => {
               return (
                 <div id={`custommer['id']`} className="custommer-card-style" onClick={() => { handleToPrintQueue(custommer['id']); handleOnChange(index) }} key={`custummer-card-${custommer['id']}`}>
-                  {/* { CustommerCard(custommer, toPrintQueue, navigate) } */}
+                  {CustommerCard(custommer, toPrintQueue, navigate)}
                 </div>
               )
             })
             }
           </div>
 
-          <p>{`${consignmentInfo[0].data_consignacao}`}</p>
-          <p>{`${orders[0].nomeProduto}`}</p>
+          {/* <p>{`${consignmentInfo[0].data_consignacao}`}</p> */}
+          {/* <p>{`${orders[0].nomeProduto}`}</p> */}
           <label>{`${routeInfo?.contato}`}</label>
 
           <label className="label-footer">Desenvolvido e mantido por paulosuriani@gmail.com</label>
