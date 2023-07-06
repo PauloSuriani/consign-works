@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import  '/src/pages/CustommerForm.css';
+import  '/src/pages/styleSheet.css';
 import { api_url } from '../../serverUrl';
 
 
