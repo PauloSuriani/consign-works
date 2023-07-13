@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-
 type CustommerProps = {
   id: number;
   contato?: string;
@@ -18,17 +16,9 @@ type CustommerProps = {
 export function CustommerCard(
   props: CustommerProps,
   toPrintQueue: Number[],
-  newScreen: (id:number) => void,
+  newScreen: (id: number) => void,
+  newSaleScreen: (id: number) => void
 ) {
-
-  // const navigate = useNavigate();
-  const showExpandedCard = () => {
-    const expandedCard = document.getElementById('expanded-card');
-    if (expandedCard) {
-      expandedCard.style.display = 'block';
-    }
-  }
-
   return (
     <div className="CustommerCard" >
       {/* CAIXA DOS SVG */}
@@ -101,9 +91,28 @@ export function CustommerCard(
           <div style={{ marginLeft: '9px', fontFamily: 'monospace', minWidth: '160px', fontSize: '14px' }}>{props.nome_fantasia ? props.nome_fantasia : props.razao_social}</div>
           {
             toPrintQueue.includes(props.id) ?
-              <label className='consign-label'>
-                {/* <input style={{ marginBottom: '5px', marginTop: '7px' }} type="radio" size={8} checked={toPrintQueue.includes(props['id'])} /> */}
-                Consignação</label> : <label className='sale-label'>Venda</label>
+              <label
+                onClick={() => newScreen(props.id)}
+                style={{ marginInlineEnd: '75px' }}
+                className='consign-label'
+              >
+                Consignação
+              </label> :
+              <div style={{ marginInlineEnd: '110px' }}>
+                <label
+                  style={{ marginInlineEnd: '6px' }}
+                  className='debt-label'
+                >
+                  Cobrança
+                </label>
+
+                <label
+                  onClick={() => newSaleScreen(props.id)}
+                  className='sale-label'
+                >
+                  Venda
+                </label>
+              </div>
           }
 
         </div>
@@ -227,15 +236,31 @@ export function CustommerCard(
             {/* <input style={{ marginBottom: '5px', marginTop: '7px' }} type="radio" size={8} checked={toPrintQueue.includes(props['id'])} /> */}
             {
               toPrintQueue.includes(props.id) ?
-                <label style={{ marginInlineEnd: '75px' }} className='consign-label'>
-                  Consignação</label> :
+                <label
+                  onClick={() => newScreen(props.id)}
+                  style={{ marginInlineEnd: '75px' }}
+                  className='consign-label'
+                >
+                  Consignação
+                </label> :
                 <div style={{ marginInlineEnd: '110px' }}>
-                  <label style={{ marginInlineEnd: '6px' }} className='debt-label'>Cobrança</label>
-                  <label  className='sale-label'>Venda</label>
+                  <label
+                    style={{ marginInlineEnd: '6px' }}
+                    className='debt-label'
+                  >
+                    Cobrança
+                  </label>
+
+                  <label
+                    onClick={() => newSaleScreen(props.id)}
+                    className='sale-label'
+                  >
+                    Venda
+                  </label>
                 </div>
             }
 
-            <svg  onClick={() => newScreen(props.id)} className="svg-edit-card" viewBox="0 0 20 20">
+            <svg onClick={() => newScreen(props.id)} className="svg-edit-card" viewBox="0 0 20 20">
               <path d="M18.303,4.742l-1.454-1.455c-0.171-0.171-0.475-0.171-0.646,0l-3.061,3.064H2.019c-0.251,0-0.457,0.205-0.457,0.456v9.578c0,0.251,0.206,0.456,0.457,0.456h13.683c0.252,0,0.457-0.205,0.457-0.456V7.533l2.144-2.146C18.481,5.208,18.483,4.917,18.303,4.742 M15.258,15.929H2.476V7.263h9.754L9.695,9.792c-0.057,0.057-0.101,0.13-0.119,0.212L9.18,11.36h-3.98c-0.251,0-0.457,0.205-0.457,0.456c0,0.253,0.205,0.456,0.457,0.456h4.336c0.023,0,0.899,0.02,1.498-0.127c0.312-0.077,0.55-0.137,0.55-0.137c0.08-0.018,0.155-0.059,0.212-0.118l3.463-3.443V15.929z M11.241,11.156l-1.078,0.267l0.267-1.076l6.097-6.091l0.808,0.808L11.241,11.156z"></path>
             </svg>
           </div>
