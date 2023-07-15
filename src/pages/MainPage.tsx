@@ -119,13 +119,28 @@ export function MainPage() {
         console.log('é igual id e idcustomer/. ', id, orders[i]);
       }
     }
-    const stateData = { stateAux };
-    console.log(stateData);
+    // Header Custommer
+    const custommerStateAux: any = [];
+    for (let i = 0; i < allCustommers.length; i += 1) {
+      if (allCustommers[i]['id'] === id) {
+        custommerStateAux.push(allCustommers[i]);
+        console.log('Header Custommer: ', id, allCustommers[i]);
+      }
+    }
+    const stateData = { stateAux, custommerStateAux };
+    console.log('stateData: ', stateData);
     navigate('/consignment', { state: { stateData }, replace: false });
   }
 
   function newSaleScreen(id: number) {
-    // navigate('/sale', { state: { stateData }, replace: false });
+    const custommerStateAux: any = [];
+    for (let i = 0; i < allCustommers.length; i += 1) {
+      if (allCustommers[i]['id'] === id) {
+        custommerStateAux.push(allCustommers[i]);
+        console.log('é igual id e idcustomer/. ', id, allCustommers[i]);
+      }
+    }
+    navigate('/sale', { state: { custommerStateAux }, replace: false });
   }
 
   return (

@@ -13,8 +13,23 @@ interface Orders {
   qtdeVendida?: string | number | any
 }
 
+type CustommerProps = {
+  id: number;
+  contato?: string;
+  razao_social?: string;
+  nome_fantasia?: string;
+  rua?: string;
+  nro?: string;
+  bairro?: string;
+  telefone?: string;
+  cnpj?: string;
+  email?: string;
+  cidade?: string;
+  uf?: string;
+}
 
 export function ConsignmentPage() {
+  const [custommerInfo, setCustommerInfo] = useState<CustommerProps>();
   const [orders, setOrders] = useState(Array<Orders>);
   const [parcialSums, setParcialSums] = useState(Array<number>);
   const [totalSum, setTotalSum] = useState<number>();
@@ -24,9 +39,11 @@ export function ConsignmentPage() {
 
   useEffect(() => {
     setOrders(location.state.stateData.stateAux);
+    setCustommerInfo(location.state.stateData.custommerStateAux[0]);
+    console.log('lalala: ', custommerInfo, custommerMock);
   }, []);
 
-  const custommerMock = {
+  const custommerMock: CustommerProps = {
     id: 1,
     contato: "POLICARPO QUARESMA",
     razao_social: 'POLICARPO QUARESMA',
@@ -71,9 +88,17 @@ export function ConsignmentPage() {
 
   return (
     <div style={{ backgroundColor: 'whitesmoke', fontWeight: 'normal' }}>
-      <h1>
-        {/* {CustommerCard(custommerMock, [], null)} */}
-        Cabeçalho padrão Cliente</h1>
+
+      {/* Cabeçalho do Pedido */}
+      <div className="custommer-card-roll">
+      <div className="custommer-card-style" >
+        {
+          custommerInfo && CustommerCard(custommerInfo!, [], () => null, () => null)
+        }
+      </div>
+
+      </div>
+
       {
         // -----======== Tabela Pedido ========------
         orders.map((order, i) => {
