@@ -35,7 +35,6 @@ export function ConsignmentPage() {
   const [totalSum, setTotalSum] = useState<number>();
 
   const location = useLocation();
-  console.log(location.state);
 
   useEffect(() => {
     setOrders(location.state.stateData.stateAux);
@@ -91,14 +90,12 @@ export function ConsignmentPage() {
 
       {/* Cabeçalho do Pedido */}
       <div className="custommer-card-roll">
-      <div className="custommer-card-style" >
-        {
-          custommerInfo && CustommerCard(custommerInfo!, [], () => null, () => null)
-        }
+        <div className="custommer-card-style" >
+          {
+            custommerInfo && CustommerCard(custommerInfo!, [], () => null, () => null)
+          }
+        </div>
       </div>
-
-      </div>
-
       {
         // -----======== Tabela Pedido ========------
         orders.map((order, i) => {

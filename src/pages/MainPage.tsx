@@ -140,7 +140,8 @@ export function MainPage() {
         console.log('é igual id e idcustomer/. ', id, allCustommers[i]);
       }
     }
-    navigate('/sale', { state: { custommerStateAux }, replace: false });
+    const stateData = { custommerStateAux };
+    navigate('/sale', { state: { stateData }, replace: false });
   }
 
   return (

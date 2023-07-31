@@ -20,6 +20,14 @@ type CustommerProps = {
 export function SalePage() {
   const [custommerInfo, setCustommerInfo] = useState<CustommerProps>();
 
+  const location = useLocation();
+
+
+  useEffect(() => {
+    setCustommerInfo(location.state.stateData.custommerStateAux[0]);
+    
+  }, []);
+
   return (
     <div style={{ backgroundColor: 'whitesmoke', fontWeight: 'normal' }}>
 
@@ -31,7 +39,7 @@ export function SalePage() {
           }
         </div>
       </div>
-      
+
       {/* ... */}
     </div>
   )
