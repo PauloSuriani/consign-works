@@ -39,23 +39,8 @@ export function ConsignmentPage() {
   useEffect(() => {
     setOrders(location.state.stateData.stateAux);
     setCustommerInfo(location.state.stateData.custommerStateAux[0]);
-    console.log('lalala: ', custommerInfo, custommerMock);
+    console.log('lalala: ', custommerInfo);
   }, []);
-
-  const custommerMock: CustommerProps = {
-    id: 1,
-    contato: "POLICARPO QUARESMA",
-    razao_social: 'POLICARPO QUARESMA',
-    nome_fantasia: 'POLICARPO QUARESMA',
-    rua: 'RUA ESPLANADA DOS MINISTÉRIOS',
-    nro: '1266',
-    bairro: 'MARTINS',
-    telefone: '(34) 99667 3334',
-    cnpj: '132164978036',
-    email: 'flaviodino@gov.com.br',
-    cidade: 'Brasília',
-    uf: "DF"
-  }
 
   function updateInputValue(event: any) {
     const value: any = event.target.value;
