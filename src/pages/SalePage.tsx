@@ -119,7 +119,7 @@ export function SalePage() {
               </div>
 
               {/* Preço */}
-              <div style={{ maxWidth: '60px', fontSize: '18px' }}>
+              <div style={{ maxWidth: '80px', fontSize: '18px' }}>
                 {order && `x ` + order.preco}
               </div>
 

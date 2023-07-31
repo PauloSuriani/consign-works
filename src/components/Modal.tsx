@@ -88,7 +88,7 @@ const Modal: React.FC<ModalProps> = ({ showModal, onClose, orders, updateOrders 
     // ... lógica para adicionar o produto à lista de pedidos ...
     // Aqui você pode criar um novo objeto do tipo Orders com os dados do novo produto e adicionar à lista de pedidos.
 
-    // Exemplo:
+    // Exemplo Mock:
     const newProduct: Orders = {
       dataVenda: new Date(),
       idConsignment: 'id do pedido',
@@ -96,8 +96,7 @@ const Modal: React.FC<ModalProps> = ({ showModal, onClose, orders, updateOrders 
       idProduct: 'id do produto',
       nomeProduto: searchValue,
       preco: value,
-      qtdeDeixada: quantity,
-      qtdeVendida: 'quantidade vendida do produto',
+      qtdeDeixada: quantity
     };
 
     const updatedOrders = [...orders, newProduct];
@@ -112,7 +111,7 @@ const Modal: React.FC<ModalProps> = ({ showModal, onClose, orders, updateOrders 
           &times;
         </span>
         <h2>Selecione um Produto</h2>
-        <p>Aqui você pode adicionar o conteúdo do seu modal.</p>
+        <p>Encontre na lista, busque ou adicione um novo produto</p>
         <div className="dropdown">
           <button className="dropbtn">Selecione uma opção</button>
           {/* MOCK OPÇÕES DE PRODUTO */}
