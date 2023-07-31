@@ -7,6 +7,7 @@ import {
 import { MainPage } from "../pages/MainPage";
 import { LoginPage } from "../pages/LoginPage"
 import { ConsignmentPage } from '../pages/ConsignmentPage';
+import { SalePage } from '../pages/SalePage';
 // import { NewCustommerForm } from '../pages/NewCustommerForm';
 
 export function AppRouter() {
@@ -16,6 +17,8 @@ return (
       <Route path="/" element={<MainPage/>} />
       <Route path="/login" element={<LoginPage/>} />
       <Route path="/consignment" element={<ConsignmentPage/>} />
+      <Route path="/sale" element={<SalePage/>} />
+
 
       {/* <Route path="/newcustommer" element={<NewCustommerForm/>} />
       <Route path="/custommer/edit/:id" element={<EditCustommer/>} /> */}
