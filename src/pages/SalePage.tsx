@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 import { CustommerCard } from "../components/CustommerCard";
 import Modal from '../components/Modal';
@@ -38,20 +38,21 @@ export function SalePage() {
 
   const location = useLocation();
 
-
+  
+  
   useEffect(() => {
     setCustommerInfo(location.state.stateData.custommerStateAux[0]);
-
+    
   }, []);
-
+  
   const handleShowModal = () => {
     setShowModal(true);
   };
-
+  
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
+  
   function updateInputValue(event: any) {
     const value: any = event.target.value;
     const field: number = event.target.id;
@@ -66,20 +67,24 @@ export function SalePage() {
 
     setTotalSum(() => {
       let sumAux = 0;
-
+      
       for (let i = 0; i < parcialSums.length; i += 1) {
         console.log('valor a ser somado no for pos, valor: ', i, parcialSums[i], parcialSums);
         if (parcialSums[i] != null) {
           sumAux += parcialSums[i] * parseFloat(orders[i].preco);
         }
       }
-
+      
       return sumAux;
     })
     console.log('parcialsums: ', parcialSums)
-
+    
   }
 
+  const updateOrders = (updatedOrders: Array<Orders>) => {
+    setOrders(updatedOrders);
+  };
+  
   return (
     <div style={{ backgroundColor: 'whitesmoke', fontWeight: 'normal' }}>
 
@@ -94,9 +99,9 @@ export function SalePage() {
       <button
         onClick={handleShowModal}
       >
-        Buscar Produto
+        Adicionar Produto
       </button>
-      <Modal showModal={showModal} onClose={handleCloseModal} />
+      <Modal showModal={showModal} onClose={handleCloseModal} updateOrders={updateOrders} orders={orders} />
 
       {
         // -----======== Tabela Pedido ========------
@@ -112,15 +117,6 @@ export function SalePage() {
               <div style={{ maxWidth: '18px', fontSize: '18px', marginInlineStart: '3px' }}>
                 {order && order.qtdeDeixada}
               </div>
-
-              {/* Quantidade Restante */}
-              <input
-                className="input-financeiro" id={`${i}`}
-                onChange={evt => updateInputValue(evt)}
-                inputMode="numeric" pattern="[0-9]*"
-                style={{ maxWidth: '28px', marginBottom: '1px', marginInline: '4px', fontSize: '17px' }}
-                required
-              />
 
               {/* Preço */}
               <div style={{ maxWidth: '60px', fontSize: '18px' }}>
