@@ -527,14 +527,18 @@ h2 {
 .order-line {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 2px;
-  margin-left: -38px;
-  border-bottom: 1px solid #ccc;
-  margin-top: -8px;
 
-  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
+  margin-block: -20px;
+  /* justify-content: space-between; */
+  /* padding: 1px; */
+  /* padding-top: -20px; */
+  padding-top: 5px;
+  margin-left: -34px;
+  border-bottom: 1px solid #ccc;
+  /* margin-top: -4px; */
+
+  box-shadow: 1px 1px  rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
   /* margin-inline: 0px */
 }
 
@@ -567,11 +571,12 @@ h2 {
 }
 
 .open-order-to-fixed-section {
+  width: 100%;
   display: flex;
   /* align-items: center; */
-  /* justify-content: space-around; */
+  justify-content: space-around;
   /* padding: 50px; */
-  background-color: lightgray;
+  /* background-color: red; */
   /* border-radius: 8px; */
   /* margin-inline: 6px; */
   /* margin-top: -8px; */
