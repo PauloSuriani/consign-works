@@ -226,7 +226,10 @@ export function SalePage() {
         })
       }
 
-      {/* ... */}
+      <footer className="label-footer">
+        Desenvolvido por Paulo V M Suriani [paulosuriani@gmail.com]
+      </footer>
+
     </div>
   )
 }
