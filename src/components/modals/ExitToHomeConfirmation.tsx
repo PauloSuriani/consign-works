@@ -6,7 +6,10 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const ExitToHomeConfirmation: React.FC<ModalProps> = ({ showConfirmation, onClose }) => {
+const ExitToHomeConfirmation: React.FC<ModalProps> = ({
+  showConfirmation,
+  onClose
+}) => {
   if (!showConfirmation) return null;
 
   const navigate = useNavigate();
@@ -23,6 +26,7 @@ const ExitToHomeConfirmation: React.FC<ModalProps> = ({ showConfirmation, onClos
         </span>
         <h2>Atenção</h2>
         <p>Ao clicar em sair você perderá os dados inseridos</p>
+        <button style={{marginInlineEnd: '8px'}} onClick={onClose}>Fechar</button>
         <button onClick={goToHome}>Sair sem salvar</button>
       </div>
     </div>
