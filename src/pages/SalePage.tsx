@@ -52,11 +52,11 @@ export function SalePage() {
   }, []);
 
   const handleShowCheckOut = () => {
-    setShowExitConfirmation(true);
+    setShowCheckOut(true);
   };
 
   const handleCloseCheckOut = () => {
-    setShowExitConfirmation(false);
+    setShowCheckOut(false);
   };
 
   const handleShowConfirmation = () => {
