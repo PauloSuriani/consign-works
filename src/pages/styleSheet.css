@@ -736,6 +736,11 @@ input[type='text'] {
   cursor: pointer;
 }
 
+.search-button > div {
+  width: 26px;
+  height: 20px;
+}
+
 .search-button:hover {
   background-color: #0056b3;
 }
@@ -802,21 +807,12 @@ input[type='text'] {
 
 .svg-order-style {
   max-width: 54px;
-  /* background-color: #007bff; */
-  /* margin-bottom: -23px; */
-  /* padding-left: 0; */
-  /* transition-property: max-width; */
-  /* transition-duration: 0.3s; */
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* justify-content: baseline; */
-  /* align-items: center; */
-  /* padding: 2px; */
-  /* font-size: 16px; */
   fill: #fff;
-  /* color: #fff; */
-  /* border: none; */
-  /* border-radius: 1px 5px 5px 1px; */
+}
+
+.svg-search-style {
+  max-width: 40px;
+  fill: #fff;
 }
 
 .svg-label-btn {
