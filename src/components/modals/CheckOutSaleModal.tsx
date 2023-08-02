@@ -16,24 +16,24 @@ const CheckOutSaleModal: React.FC<ModalProps> = ({ showCheckOut, onClose }) => {
         </span>
         <h2>Exemplo de Modal</h2>
         <p>Aqui você pode adicionar o conteúdo do seu modal.</p>
+        <footer style={{
+          marginBlockStart: '8px',
+          display: 'flex',
+          justifyContent: 'end',
+          marginInlineEnd: '20px'
+        }}>
+          <input
+            type="checkbox"
+            id="discount-checkbox"
+            name="discount"
+            value="5"
+          />
+          <label style={{ paddingTop: '2px' }} htmlFor="discount-checkbox">Aplicar desconto de 5% à vista</label>
+        </footer>
         <button onClick={onClose}>Fechar</button>
       </div>
-      <footer style={{
-        marginBlockStart: '8px',
-        display: 'flex',
-        justifyContent: 'end',
-        marginInlineEnd: '20px'
-      }}>
-        <input
-          type="checkbox"
-          id="discount-checkbox"
-          name="discount"
-          value="5"
-        />
-        <label style={{paddingTop: '2px'}} htmlFor="discount-checkbox">Aplicar desconto de 5% à vista</label>
-      </footer>
-    </div>
-  );
+      </div>
+      );
 };
 
-export default CheckOutSaleModal;
+      export default CheckOutSaleModal;
