@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface ModalProps {
   showConfirmation: boolean;
@@ -8,15 +9,21 @@ interface ModalProps {
 const ExitToHomeConfirmation: React.FC<ModalProps> = ({ showConfirmation, onClose }) => {
   if (!showConfirmation) return null;
 
+  const navigate = useNavigate();
+
+  const goToHome = () => {
+    navigate('/');
+  }
+
   return (
     <div className="modal">
       <div className="modal-content">
         <span className="close" onClick={onClose}>
           &times;
         </span>
-        <h2>Exemplo de Modal</h2>
-        <p>Aqui você pode adicionar o conteúdo do seu modal.</p>
-        <button onClick={onClose}>Fechar</button>
+        <h2>Atenção</h2>
+        <p>Ao clicar em sair você perderá os dados inseridos</p>
+        <button onClick={goToHome}>Sair sem salvar</button>
       </div>
     </div>
   );
