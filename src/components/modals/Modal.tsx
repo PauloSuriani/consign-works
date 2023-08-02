@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-// import './Modal.css';
+import React, { useEffect, useState } from 'react';
+
+type DropDownOption = {
+  "id": number,
+  "nome": string
+};
 interface Orders {
   dataVenda?: Date | any,
   idConsignment: string,
@@ -9,18 +13,29 @@ interface Orders {
   preco: string,
   qtdeDeixada: string | number | any,
   qtdeVendida?: string | number | any
-}
+};
 interface ModalProps {
   showModal: boolean;
   onClose: () => void;
   updateOrders: (updatedOrders: Array<Orders>) => void;
   orders: Array<Orders>;
-}
+  productsData: Array<DropDownOption>;
+};
 
-const Modal: React.FC<ModalProps> = ({ showModal, onClose, orders, updateOrders }) => {
+const Modal: React.FC<ModalProps> = ({
+  showModal,
+  onClose,
+  orders,
+  updateOrders,
+  productsData,
+}) => {
   const [searchValue, setSearchValue] = useState('');
   const [quantity, setQuantity] = useState('');
   const [value, setValue] = useState('');
+  const [products, setProducts] = useState(productsData);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState(Boolean); // Estado para a opção selecionada
+
 
   if (!showModal) return null;
 
@@ -45,8 +60,7 @@ const Modal: React.FC<ModalProps> = ({ showModal, onClose, orders, updateOrders 
       const part2 = originalString.slice(position);
       return part1 + charToAdd + part2;
     }
-  }
-
+  };
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValueAux = event.target.value.replace(',', '');
@@ -111,8 +125,9 @@ const Modal: React.FC<ModalProps> = ({ showModal, onClose, orders, updateOrders 
 
     const valueElement = document.getElementById('value-input') as HTMLInputElement;
     const quantityElement = document.getElementById('quantity-input') as HTMLInputElement;
-    const productElement = document.getElementById('product-input') as HTMLInputElement; 
-  
+    const productElement = document.getElementById('product-input') as HTMLInputElement;
+    const productDropDown = document.getElementById('products-dropdown') as HTMLInputElement;
+
     if (valueElement) {
       valueElement.value = ''; // Definindo o valor para uma string vazia
       setValue('');
@@ -124,7 +139,17 @@ const Modal: React.FC<ModalProps> = ({ showModal, onClose, orders, updateOrders 
     if (productElement) {
       setSearchValue(''); // Definindo o valor para uma string vazia
     }
-  }
+    if (productDropDown) {
+      setSelectedOption(''); // Definindo o valor para uma string vazia
+      productDropDown.value = '';
+      setSelectedProduct(true);
+    }
+  };
+
+  const handleDropDownChange = (event: any) => {
+    setSelectedOption(event.target.value);
+    setSearchValue(event.target.value);
+  };
 
   return (
     <div className="modal-general-style modal">
@@ -133,41 +158,57 @@ const Modal: React.FC<ModalProps> = ({ showModal, onClose, orders, updateOrders 
           &times;
         </span>
         <h2>Venda de Produtos</h2>
-        <p></p>
 
-        <div className="dropdown">
-          <button className="dropbtn">Nomes e Referências dos Produtos Disponíveis</button>
-          {/* MOCK OPÇÕES DE PRODUTO */}
-          <div className="dropdown-content">
-            <a onClick={() => setSearchValue("CABO/CARREGADOR 1.2 INOVA")} href="#">
-              CB1000 - CABO/CARREGADOR 1.2 INOVA
-            </a>
-            <a onClick={() => setSearchValue("CARREGADOR VEICULAR JIM BEAM AUTO MEX")} href="#">
-              CR2027 CARREGADOR VEICULAR JIM BEAM AUTO MEX
-            </a>
-            <a onClick={() => setSearchValue("CAIXA DE SOM JIM BEAM")} href="#">
-              CX1011 - CAIXA DE SOM JIM BEAM
-            </a>
-            <a onClick={() => setSearchValue("CABO/CARREGADOR 1.2 IPHONE JIM BEAN")} href="#">
-              CB1001 - CABO/CARREGADOR 1.2 IPHONE JIM BEAN
-            </a>
-            <a onClick={() => setSearchValue("JIM BEAN FITAS")} href="#">
-              DV1002 - JIM BEAN FITAS
-            </a>
-            <a onClick={() => setSearchValue("FONE DE OUVIDO BEAN JIM")} href="#">
-              FN1020 - FONE DE OUVIDO BEAN JIM
-            </a>
-          </div>
+        {/* DROP DOWN LIST */}
+        <div
+          className="dropdown"
+          style={{ marginBlockEnd: '18px', fontFamily: 'sans-serif' }}
+        >
+          <select
+            className="form-input"
+            value={selectedOption}
+            onChange={handleDropDownChange}
+          >
+            <option
+              id='products-dropdown'
+              selected={selectedProduct}
+              key='0'
+              value=""
+            >
+              [Lista de Produtos Cadastrados]
+            </option>
+            {products.map((productDropDownElem) => {
+              return (
+                <option
+                  className='dropdown'
+                  key={productDropDownElem['id']}
+                  id="id_field_seller"
+                  value={`${productDropDownElem['nome']}`}
+                >
+                  {productDropDownElem['nome']}
+                </option>
+              )
+            })}
+          </select>
         </div>
+
         <div className="search-container">
           <input
             id='product-input'
             type="text"
             placeholder="Buscar produto..."
-            value={searchValue}
             onChange={handleSearchChange}
+            value={searchValue}
           />
-          <button className="search-button">Buscar</button>
+
+          <button className="search-button">
+            <div className='search-btn-div'>
+              <svg style={{ cursor: 'pointer', backgroundColor: '#007bff' }} className="svg-search-style" viewBox="0 0 20 20">
+                <path d="M18.125,15.804l-4.038-4.037c0.675-1.079,1.012-2.308,1.01-3.534C15.089,4.62,12.199,1.75,8.584,1.75C4.815,1.75,1.982,4.726,2,8.286c0.021,3.577,2.908,6.549,6.578,6.549c1.241,0,2.417-0.347,3.44-0.985l4.032,4.026c0.167,0.166,0.43,0.166,0.596,0l1.479-1.478C18.292,16.234,18.292,15.968,18.125,15.804 M8.578,13.99c-3.198,0-5.716-2.593-5.733-5.71c-0.017-3.084,2.438-5.686,5.74-5.686c3.197,0,5.625,2.493,5.64,5.624C14.242,11.548,11.621,13.99,8.578,13.99 M16.349,16.981l-3.637-3.635c0.131-0.11,0.721-0.695,0.876-0.884l3.642,3.639L16.349,16.981z"></path>
+              </svg>
+            </div>
+          </button>
+
         </div>
         {searchValue && (
           <p className='div-svg-custommer-card-sm-combo'>
@@ -214,7 +255,11 @@ const Modal: React.FC<ModalProps> = ({ showModal, onClose, orders, updateOrders 
             <svg className="svg-custommer-card" viewBox="0 0 20 20">
               <path d="M14.38,3.467l0.232-0.633c0.086-0.226-0.031-0.477-0.264-0.559c-0.229-0.081-0.48,0.033-0.562,0.262l-0.234,0.631C10.695,2.38,7.648,3.89,6.616,6.689l-1.447,3.93l-2.664,1.227c-0.354,0.166-0.337,0.672,0.035,0.805l4.811,1.729c-0.19,1.119,0.445,2.25,1.561,2.65c1.119,0.402,2.341-0.059,2.923-1.039l4.811,1.73c0,0.002,0.002,0.002,0.002,0.002c0.23,0.082,0.484-0.033,0.568-0.262c0.049-0.129,0.029-0.266-0.041-0.377l-1.219-2.586l1.447-3.932C18.435,7.768,17.085,4.676,14.38,3.467 M9.215,16.211c-0.658-0.234-1.054-0.869-1.014-1.523l2.784,0.998C10.588,16.215,9.871,16.447,9.215,16.211 M16.573,10.27l-1.51,4.1c-0.041,0.107-0.037,0.227,0.012,0.33l0.871,1.844l-4.184-1.506l-3.734-1.342l-4.185-1.504l1.864-0.857c0.104-0.049,0.188-0.139,0.229-0.248l1.51-4.098c0.916-2.487,3.708-3.773,6.222-2.868C16.187,5.024,17.489,7.783,16.573,10.27"></path>
             </svg>
-            <strong style={{ fontSize: '14px', paddingInline: '10px', paddingTop: '3px', minWidth: '130px' }}>{`Por favor, preencha todos os Dados do Pedido`}</strong>
+            <strong
+              style={{ fontSize: '14px', paddingInline: '10px', paddingTop: '3px', minWidth: '130px' }}
+            >
+              {`Por favor, preencha todos os Dados do Pedido`}
+            </strong>
 
           </p>
 
