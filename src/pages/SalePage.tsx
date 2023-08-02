@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { CustommerCard } from "../components/CustommerCard";
 import Modal from '../components/modals/Modal';
 import ExitToHomeConfirmation from '../components/modals/ExitToHomeConfirmation';
+import CheckOutSaleModal from '../components/modals/CheckOutSaleModal';
 
 type CustommerProps = {
   id: number;
@@ -34,13 +35,14 @@ export function SalePage() {
   const [custommerInfo, setCustommerInfo] = useState<CustommerProps>();
   const [showModal, setShowModal] = useState(false);
   const [showExitConfirmation, setShowExitConfirmation] = useState(false);
+  const [showCheckOut, setShowCheckOut] = useState(false);
   const [orders, setOrders] = useState(Array<Orders>);
   const [parcialSums, setParcialSums] = useState(Array<number>);
   const [totalSum, setTotalSum] = useState<number>();
 
   const location = useLocation();
   const navigate = useNavigate();
-  
+
 
 
 
@@ -48,6 +50,14 @@ export function SalePage() {
     setCustommerInfo(location.state.stateData.custommerStateAux[0]);
 
   }, []);
+
+  const handleShowCheckOut = () => {
+    setShowExitConfirmation(true);
+  };
+
+  const handleCloseCheckOut = () => {
+    setShowExitConfirmation(false);
+  };
 
   const handleShowConfirmation = () => {
     setShowExitConfirmation(true);
@@ -98,7 +108,7 @@ export function SalePage() {
   };
 
   const exitToHome = () => {
-    
+
     navigate('/');
   }
 
@@ -126,9 +136,9 @@ export function SalePage() {
                 Novo Produto
               </div>
             </div> */}
-          <div 
-          onClick={handleShowConfirmation}
-          style={{ cursor: 'pointer', backgroundColor: '' }}
+          <div
+            onClick={handleShowConfirmation}
+            style={{ cursor: 'pointer', backgroundColor: '' }}
           >
 
             <svg className="svg-nav-style svg-icon" viewBox="0 0 20 20">
@@ -141,6 +151,7 @@ export function SalePage() {
           <div>
             <svg
               // onClick={newScreen}
+              onClick={handleShowCheckOut}
               cursor={'pointer'}
               className="svg-nav-style svg-icon"
               viewBox="0 0 20 20"
@@ -179,9 +190,11 @@ export function SalePage() {
       >
         Adicionar Produto
       </button> */}
-      <Modal showModal={showModal} onClose={handleCloseModal} updateOrders={updateOrders} orders={orders} />
+      <Modal showModal={showModal} onClose={handleCloseModal} updateOrders={updateOrders} orders={orders} productsData={productsMock} />
 
-      <ExitToHomeConfirmation showConfirmation={showExitConfirmation} onClose={handleCloseConfirmation}/>
+      <ExitToHomeConfirmation showConfirmation={showExitConfirmation} onClose={handleCloseConfirmation} />
+
+      <CheckOutSaleModal showCheckOut={showCheckOut} onClose={handleCloseCheckOut} />
 
       {
         // -----======== Tabela Pedido ========------
@@ -189,7 +202,7 @@ export function SalePage() {
           return <ol>
             <li className="order-line" style={{ minHeight: '42px' }}>
               {/* Nome do Produto */}
-              <div style={{ minWidth: '160px', fontSize: '13px',marginInlineStart: '0px', marginBlock: '0px' }}>
+              <div style={{ minWidth: '160px', fontSize: '13px', marginInlineStart: '0px', marginBlock: '0px' }}>
                 {order && order.nomeProduto}
               </div>
 
@@ -217,3 +230,41 @@ export function SalePage() {
     </div>
   )
 }
+
+type DropDownOption = {
+  "id": number,
+  "nome": string
+};
+
+const productsMock: DropDownOption[] = [
+  { id: 1, nome: "Cabo USB-C para USB-A" },
+  { id: 2, nome: "Carregador de Parede USB 2.4A" },
+  { id: 3, nome: "Caixa de Som Bluetooth Portátil" },
+  { id: 4, nome: "Fone de Ouvido Intra-auricular" },
+  { id: 5, nome: "Cabo HDMI 2.0 de 1 metro" },
+  { id: 6, nome: "Carregador Veicular Qualcomm Quick Charge 3.0" },
+  { id: 7, nome: "Carregador Wireless para Smartphones" },
+  { id: 8, nome: "Power Bank 10000mAh" },
+  { id: 9, nome: "Adaptador Universal de Tomada" },
+  { id: 10, nome: "Fone de Ouvido Bluetooth com Cancelamento de Ruído" },
+  { id: 11, nome: "Cabo Lightning para USB" },
+  { id: 12, nome: "Carregador de Parede USB-C 18W" },
+  { id: 13, nome: "Caixa de Som Soundbar 2.1" },
+  { id: 14, nome: "Fone de Ouvido Over-ear com Microfone" },
+  { id: 15, nome: "Cabo VGA para VGA" },
+  { id: 16, nome: "Carregador Wireless para Smartwatch" },
+  { id: 17, nome: "Carregador Solar Portátil" },
+  { id: 18, nome: "Adaptador USB para Ethernet" },
+  { id: 19, nome: "Fone de Ouvido Esportivo à Prova d'Água" },
+  { id: 20, nome: "Cabo DisplayPort para HDMI" },
+  { id: 21, nome: "Carregador de Parede USB 3.0 com Portas Tipo-C e USB-A" },
+  { id: 22, nome: "Caixa de Som Bluetooth à Prova d'Água" },
+  { id: 23, nome: "Fone de Ouvido True Wireless" },
+  { id: 24, nome: "Cabo Micro USB para USB-A" },
+  { id: 25, nome: "Carregador Portátil sem Fio com Ventosa" },
+  { id: 26, nome: "Carregador de Bateria Universal para Câmeras" },
+  { id: 27, nome: "Adaptador USB-C para HDMI e USB-A" },
+  { id: 28, nome: "Fone de Ouvido com Cancelamento de Ruído Ativo" },
+  { id: 29, nome: "Cabo Coaxial de 1,5 metros" },
+  { id: 30, nome: "Carregador de Parede com 4 Portas USB" },
+];
