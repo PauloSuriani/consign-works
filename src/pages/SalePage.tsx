@@ -38,7 +38,7 @@ export function SalePage() {
   const [showCheckOut, setShowCheckOut] = useState(false);
   const [orders, setOrders] = useState(Array<Orders>);
   const [parcialSums, setParcialSums] = useState(Array<number>);
-  const [totalSum, setTotalSum] = useState<number>();
+  const [totalSum, setTotalSum] = useState<number>(0);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -105,7 +105,23 @@ export function SalePage() {
 
   const updateOrders = (updatedOrders: Array<Orders>) => {
     setOrders(updatedOrders);
+  
+    // Recalcula o valor total do pedido
+    
+    let sum = 0;
+    updatedOrders.forEach(order => {
+      const inputValueAux = order.preco.replace(',', '');
+      const inputValue = inputValueAux.replace('R$ ', '');
+
+      // const precoNumber = parseFloat(order.preco.replace("R$ ", ""));
+      const subtotal = order.qtdeDeixada * parseFloat(inputValue);
+      console.log('somadora: ', subtotal, order.qtdeDeixada)
+      sum += subtotal / 100;
+    });
+    setTotalSum(sum);
   };
+  
+
 
   const exitToHome = () => {
 
@@ -172,7 +188,6 @@ export function SalePage() {
             </div>
           </div>
 
-
         </section>
 
       </div>
@@ -194,7 +209,7 @@ export function SalePage() {
 
       <ExitToHomeConfirmation showConfirmation={showExitConfirmation} onClose={handleCloseConfirmation} />
 
-      <CheckOutSaleModal showCheckOut={showCheckOut} onClose={handleCloseCheckOut} />
+      <CheckOutSaleModal showCheckOut={showCheckOut} totalSum={totalSum} onClose={handleCloseCheckOut} />
 
       {
         // -----======== Tabela Pedido ========------
@@ -225,9 +240,15 @@ export function SalePage() {
           </ol>
         })
       }
+       <h3 style={{marginTop: '28px', display: 'flex', flexDirection: 'row-reverse', marginInlineEnd: '24px', paddingBottom: '12px' }}>
+       Total do Pedido: {totalSum.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+
+
+       </h3>
+      
 
       <footer className="label-footer">
-        Desenvolvido por Paulo V M Suriani [paulosuriani@gmail.com]
+        Contato - Paulo V M Suriani [paulosuriani@gmail.com]
       </footer>
 
     </div>
