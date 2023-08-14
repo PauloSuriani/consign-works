@@ -2,11 +2,28 @@ import React from 'react';
 
 interface ModalProps {
   showCheckOut: boolean;
+  totalSum: number;
   onClose: () => void;
 }
 
-const CheckOutSaleModal: React.FC<ModalProps> = ({ showCheckOut, onClose }) => {
+const CheckOutSaleModal: React.FC<ModalProps> = ({ showCheckOut, totalSum, onClose }) => {
   if (!showCheckOut) return null;
+
+  const dateSetUp = () => {
+    const orderDate = new Date(); 
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZoneName: 'short'
+    };
+    const dateFormatter = new Intl.DateTimeFormat('pt-BR', options);
+    const formattedDate = dateFormatter.format(orderDate);
+    return formattedDate;
+  }
 
   return (
     <div className="modal">
@@ -14,8 +31,11 @@ const CheckOutSaleModal: React.FC<ModalProps> = ({ showCheckOut, onClose }) => {
         <span className="close" onClick={onClose}>
           &times;
         </span>
-        <h2>Exemplo de Modal</h2>
-        <p>Aqui você pode adicionar o conteúdo do seu modal.</p>
+        <h2>Fechar Venda</h2>
+        <h3 style={{marginTop: '28px', display: 'flex', flexDirection: 'row-reverse', marginInlineEnd: '24px', paddingBottom: '12px' }}>
+        Total do Pedido: R$ {totalSum.toFixed(2)}
+       </h3>
+        <p>Realizado em {dateSetUp()}</p>
         <footer style={{
           marginBlockStart: '8px',
           display: 'flex',
@@ -32,8 +52,8 @@ const CheckOutSaleModal: React.FC<ModalProps> = ({ showCheckOut, onClose }) => {
         </footer>
         <button onClick={onClose}>Fechar</button>
       </div>
-      </div>
-      );
+    </div>
+  );
 };
 
-      export default CheckOutSaleModal;
+export default CheckOutSaleModal;
