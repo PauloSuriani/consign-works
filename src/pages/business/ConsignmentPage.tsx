@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { CustommerCard } from "../components/CustommerCard";
+import { CustommerCard } from "../../components/cards/CustommerCard";
 
 interface Orders {
   dataVenda?: Date | any,

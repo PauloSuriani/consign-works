@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import  '/src/pages/styleSheet.css';
-import { api_url } from '../../serverUrl';
+import { api_url } from '../../../serverUrl';
 
 
 type LoginObject = {

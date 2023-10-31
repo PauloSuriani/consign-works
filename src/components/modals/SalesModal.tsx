@@ -162,18 +162,21 @@ const Modal: React.FC<ModalProps> = ({
         {/* DROP DOWN LIST */}
         <div
           className="dropdown"
-          style={{ marginBlockEnd: '18px', fontFamily: 'sans-serif' }}
+          style={{ marginBlockEnd: '18px', fontFamily: 'Arial, sans-serif' }}
         >
           <select
             className="form-input"
             value={selectedOption}
             onChange={handleDropDownChange}
+            style={{ fontFamily: 'Arial, sans-serif' }}
           >
             <option
               id='products-dropdown'
               selected={selectedProduct}
               key='0'
               value=""
+              style={{ fontFamily: 'Arial, sans-serif' }}
+
             >
               [Lista de Produtos Cadastrados]
             </option>

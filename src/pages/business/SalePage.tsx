@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import { CustommerCard } from "../components/CustommerCard";
-import Modal from '../components/modals/Modal';
-import ExitToHomeConfirmation from '../components/modals/ExitToHomeConfirmation';
-import CheckOutSaleModal from '../components/modals/CheckOutSaleModal';
+import { CustommerCard } from "../../components/cards/CustommerCard";
+import Modal from '../../components/modals/SalesModal';
+import ExitToHomeConfirmation from '../../components/modals/ExitToHomeConfirmation';
+import CheckOutSaleModal from '../../components/modals/CheckOutSaleModal';
 
 type CustommerProps = {
   id: number;

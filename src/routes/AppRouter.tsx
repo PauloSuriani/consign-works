@@ -4,10 +4,10 @@ import {
     Routes,
   } from 'react-router-dom';
 // import { EditCustommer } from '../pages/EditCustommer';
-import { MainPage } from "../pages/MainPage";
-import { LoginPage } from "../pages/LoginPage"
-import { ConsignmentPage } from '../pages/ConsignmentPage';
-import { SalePage } from '../pages/SalePage';
+import { MainPage } from "../pages/home/MainPage";
+import { LoginPage } from "../pages/login/LoginPage"
+import { ConsignmentPage } from '../pages/business/ConsignmentPage';
+import { SalePage } from '../pages/business/SalePage';
 // import { NewCustommerForm } from '../pages/NewCustommerForm';
 
 export function AppRouter() {
