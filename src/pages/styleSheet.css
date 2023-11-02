@@ -576,6 +576,7 @@ h2 {
 .open-order-to-fixed-section {
   width: 100%;
   display: flex;
+  font-family: Arial;
   /* align-items: center; */
   justify-content: space-around;
   /* padding: 50px; */
@@ -646,7 +647,7 @@ h2 {
 .modal {
   display: flex;
   position: fixed;
-  font-family: sans-serif;
+  font-family: Arial;
   top: 0;
   left: 0;
   width: 100%;
