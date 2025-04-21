@@ -42,7 +42,7 @@ export function MainPage() {
   const [toPrintCustommers, setToPrintCustommers] = useState([]);
   const [printScreen, setPrintScreen] = useState(Boolean);
   const [checkedState, setCheckedState] = useState(
-    new Array(filteredCustommers.length).fill(false)
+    new Array(filteredCustommers ? filteredCustommers.length : 0).fill(false)
   );
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -77,22 +77,26 @@ export function MainPage() {
 
     fetch(fetchUrl)
       .then(response => response.json())
-      .then(res => { handleApiResponse(res); console.log('ia bada bada badu: ', res); })
+      .then(res => { handleApiResponse(res); console.log('[api response]:', res); })
       .catch(err => console.log(err));
   };
 
   function handleApiResponse(response: any) {
-    setAllCustommers(response.custommersInfo);
+    setAllCustommers(response.custommersInfo ? response.custommersInfo : '');
     setFilteredCustommers(response.custommersInfo);
     setRouteInfo(response.route);
     setConsignmentInfo(response.consignOrders);
     setOrders(response.detailedOrders);
 
-    const consignOrdersAux: Array<number> = [];
-    response.consignOrders.map((consign: Consignments) => {
-      consignOrdersAux.push(consign.id_custommer);
-    })
-    setToPrintQueue(consignOrdersAux);
+    if (response.message !== 'Erro interno') {
+      alert('ei')
+      const consignOrdersAux: Array<number> = [];
+      response.consignOrders.map((consign: Consignments) => {
+        consignOrdersAux.push(consign.id_custommer);
+      })
+      setToPrintQueue(consignOrdersAux);
+    }
+    else setToPrintQueue([0])
   }
 
   // Search Engine
@@ -149,8 +153,8 @@ export function MainPage() {
       <div style={{ backgroundColor: 'white', fontFamily: 'Arial' }} className="home-default">
 
         {/* Menu Barra Fixada */}
-        <div 
-        className="div-svg-btn-fixed">
+        <div
+          className="div-svg-btn-fixed">
           {/* Informação Dinâmica: à definir */}
           {/* <h2>{`${toPrintQueue.length === 0
               ? ''
@@ -161,11 +165,11 @@ export function MainPage() {
           {/* Botão Ação SVG */}
           <section className="open-order-to-fixed-section">
 
-            <div style={{ paddingTop: '0px' , fontFamily: 'Arial' }}>
+            <div style={{ paddingTop: '0px', fontFamily: 'Arial' }}>
               <svg cursor={'pointer'} className="svg-nav-style svg-icon" viewBox="0 0 20 20">
                 <path d="M7.93,4.509H9.62v1.689c0,0.233,0.189,0.422,0.422,0.422s0.422-0.189,0.422-0.422V4.509h1.689c0.233,0,0.423-0.189,0.423-0.422s-0.189-0.422-0.423-0.422h-1.689V1.975c0-0.233-0.189-0.422-0.422-0.422S9.62,1.742,9.62,1.975v1.689H7.93c-0.233,0-0.422,0.189-0.422,0.422S7.697,4.509,7.93,4.509 M18.489,8.311H1.595c-0.466,0-0.845,0.378-0.845,0.845V10c0,0.466,0.378,0.845,0.845,0.845h0.169l1.533,7.282l0.007-0.001c0.046,0.183,0.205,0.321,0.402,0.321h12.67c0.198,0,0.356-0.139,0.403-0.321l0.007,0.001l1.533-7.282h0.169c0.466,0,0.845-0.379,0.845-0.845V9.155C19.334,8.689,18.955,8.311,18.489,8.311 M2.626,10.845H5.53l0.266,1.689H2.982L2.626,10.845z M3.16,13.379h2.769l0.267,1.689H3.515L3.16,13.379z M4.049,17.603l-0.355-1.689h2.636l0.267,1.689H4.049z M9.62,17.603H7.441l-0.267-1.689H9.62V17.603z M9.62,15.068H7.041l-0.267-1.689H9.62V15.068z M9.62,12.534H6.641l-0.266-1.689H9.62V12.534z M12.644,17.603h-2.179v-1.689h2.446L12.644,17.603zM13.043,15.068h-2.579v-1.689h2.845L13.043,15.068z M10.464,12.534v-1.689h3.245l-0.266,1.689H10.464z M16.035,17.603h-2.548l0.268-1.689h2.636L16.035,17.603z M16.569,15.068h-2.682l0.267-1.689h2.77L16.569,15.068z M17.103,12.534h-2.814l0.267-1.689h2.903L17.103,12.534z M18.489,10H1.595V9.155h16.895V10z"></path>
               </svg>
-              <label style={{ paddingTop: '0px' , fontFamily: 'Arial' }}>
+              <label style={{ paddingTop: '0px', fontFamily: 'Arial' }}>
                 Carga
               </label>
             </div>
@@ -226,7 +230,7 @@ export function MainPage() {
             <svg className="svg-big-style" viewBox="0 0 20 20">
               <path d="M18.125,15.804l-4.038-4.037c0.675-1.079,1.012-2.308,1.01-3.534C15.089,4.62,12.199,1.75,8.584,1.75C4.815,1.75,1.982,4.726,2,8.286c0.021,3.577,2.908,6.549,6.578,6.549c1.241,0,2.417-0.347,3.44-0.985l4.032,4.026c0.167,0.166,0.43,0.166,0.596,0l1.479-1.478C18.292,16.234,18.292,15.968,18.125,15.804 M8.578,13.99c-3.198,0-5.716-2.593-5.733-5.71c-0.017-3.084,2.438-5.686,5.74-5.686c3.197,0,5.625,2.493,5.64,5.624C14.242,11.548,11.621,13.99,8.578,13.99 M16.349,16.981l-3.637-3.635c0.131-0.11,0.721-0.695,0.876-0.884l3.642,3.639L16.349,16.981z"></path>
             </svg>
-            <div style={{ fontSize: '18px' }}>{`${filteredCustommers.length === 0
+            <div style={{ fontSize: '18px' }}>{`${!filteredCustommers || filteredCustommers.length === 0
               ? 'Nenhum registro encontrado'
               : filteredCustommers.length === allCustommers.length
                 ? `Total de ${filteredCustommers.length} registros`
@@ -265,7 +269,7 @@ export function MainPage() {
 
         {/* ROLL DE CARDS POR CUSTOMMER:  */}
         <div className="custommer-card-roll">
-          {filteredCustommers.map((custommer, index) => {
+          {filteredCustommers && filteredCustommers.map((custommer, index) => {
             return (
               <div
                 id={`custommer['id']`} className="custommer-card-style" key={`custummer-card-${custommer['id']}`}
