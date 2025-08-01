@@ -1,6 +1,6 @@
 export default interface SalesAux {
 
-  idSale: number;
+  idSale?: number;
 
   idConsignment?: number;
 

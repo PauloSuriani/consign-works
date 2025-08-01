@@ -29,6 +29,8 @@ export default interface Custommer {
 
   inDebt: boolean;
 
+  notes?: string;
+
   createdAt?: Date;
 
   updatedAt?: Date;

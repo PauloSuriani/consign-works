@@ -7,5 +7,7 @@ export default interface Sale {
 	dataVenda?: Date;
 
 	totalVendido?: number | string;
+
+	modoPagamento?: string;
 	
 };
